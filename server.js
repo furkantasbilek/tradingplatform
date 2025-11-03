@@ -147,7 +147,8 @@ app.get('/', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Trading Platform server running on http://localhost:${PORT}`);
   console.log(`📊 API endpoints available at http://localhost:${PORT}/api/*`);
+  console.log(`🌐 Also accessible from: http://0.0.0.0:${PORT}`);
 });
