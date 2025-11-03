@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Platform - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>📈 Trading Platform</h1>
+            </div>
+            <div class="user-info">
+                <div class="balance">
+                    <span class="label">Portfolio Value:</span>
+                    <span class="value" id="portfolioValue">$0.00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar - Market Stats -->
+            <aside class="sidebar">
+                <div class="stats-card">
+                    <h3>Market Stats</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">24h Volume</span>
+                        <span class="stat-value" id="totalVolume">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Active Pairs</span>
+                        <span class="stat-value" id="activePairs">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Orders</span>
+                        <span class="stat-value" id="totalOrders">-</span>
+                    </div>
+                </div>
+
+                <div class="trading-form">
+                    <h3>Quick Trade</h3>
+                    <select id="tradeSymbol" class="form-input">
+                        <option value="">Select Pair...</option>
+                    </select>
+                    <div class="trade-buttons">
+                        <button class="btn btn-buy" onclick="showTradeModal('buy')">Buy</button>
+                        <button class="btn btn-sell" onclick="showTradeModal('sell')">Sell</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Section -->
+            <main class="main-section">
+                <!-- Trading Pairs -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2>Trading Pairs</h2>
+                        <button class="btn btn-refresh" onclick="refreshData()">🔄 Refresh</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>24h Change</th>
+                                    <th>Volume</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pairsTable">
+                                <tr>
+                                    <td colspan="6" class="loading">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Portfolio -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2>My Portfolio</h2>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Amount</th>
+                                    <th>Avg Price</th>
+                                    <th>Current Price</th>
+                                    <th>Profit/Loss</th>
+                                    <th>Total Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="portfolioTable">
+                                <tr>
+                                    <td colspan="6" class="loading">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Order History -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2>Order History</h2>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Symbol</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Price</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable">
+                                <tr>
+                                    <td colspan="6" class="loading">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Trade Modal -->
+    <div id="tradeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Place Order</h2>
+                <span class="close" onclick="closeTradeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Symbol</label>
+                    <input type="text" id="modalSymbol" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" id="modalAmount" class="form-input" step="0.0001" placeholder="0.0000">
+                </div>
+                <div class="form-group">
+                    <label>Price (USD)</label>
+                    <input type="number" id="modalPrice" class="form-input" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Total</label>
+                    <input type="text" id="modalTotal" class="form-input" readonly>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeTradeModal()">Cancel</button>
+                <button class="btn" id="modalSubmit" onclick="submitTrade()">Place Order</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

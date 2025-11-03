@@ -1,0 +1,16 @@
+{
+  "name": "tradingplatform",
+  "version": "1.0.0",
+  "description": "Simple trading platform web interface",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["trading", "platform", "web", "finance"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
